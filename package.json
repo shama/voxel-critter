@@ -37,8 +37,10 @@
   },
   "devDependencies": {
     "beefy": "~0.3.0",
-    "voxel-engine": "~0.17.1",
+    "voxel-engine": "~0.18.0",
     "voxel-player": "~0.1.0",
-    "voxel-perlin-terrain": "0.0.5"
+    "voxel-perlin-terrain": "~1.0.0",
+    "browser-request": "~0.2.1",
+    "voxel-walk": "0.0.5"
   }
 }
