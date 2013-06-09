@@ -1,21 +1,53 @@
 var createGame = require('voxel-engine');
 var tic = require('tic')();
-var createTerrain = require('voxel-perlin-terrain');
+var perlinTerrain = require('voxel-perlin-terrain')
+var walk = require('voxel-walk')
+var request = require('browser-request')
 
 var game = createGame({
   chunkDistance: 2,
-  generateVoxelChunk: createTerrain({scaleFactor:6}),
-  materials: ['brick', ['grass', 'dirt', 'grass_dirt'], 'dirt'],
+  generateChunks: false,
+  materials: [['grass', 'dirt', 'grass_dirt'], 'brick', 'dirt'],
   texturePath: 'textures/'
 });
+
+var terrainGenerator = perlinTerrain('foobar', 0, 4)
+
+game.voxels.on('missingChunk', function(chunkPosition) {
+  var size = game.chunkSize
+  var voxels = terrainGenerator(chunkPosition, size)
+  var chunk = {
+    position: chunkPosition,
+    dims: [size, size, size],
+    voxels: voxels
+  }
+  game.showChunk(chunk)
+})
+
+game.paused = false
+
 var container = document.body;
 game.appendTo(container);
 
 // create a player
 var createPlayer = require('voxel-player')(game);
 var player = createPlayer('textures/shama.png');
-player.yaw.position.set(0, -40, 0);
+player.yaw.position.set(0, 20, 0);
 player.possess();
+player.toggle(); // switch to 3rd person
+
+game.on('tick', function() {
+  walk.render(player.playerSkin)
+  var vx = Math.abs(player.velocity.x)
+  var vz = Math.abs(player.velocity.z)
+  if (vx > 0.001 || vz > 0.001) walk.stopWalking()
+  else walk.startWalking()
+})
+
+// toggle between first and third person modes
+window.addEventListener('keydown', function (ev) {
+  if (ev.keyCode === 'R'.charCodeAt(0)) player.toggle()
+})
 
 function addImage(img) {
   var right = document.querySelector('.right');
@@ -71,6 +103,52 @@ game.once('tick', function() {
   };
   rabbit.src = './rabbit.png';
 });
+
+// critter browser
+function showCritterBrowser() {
+  var content = document.querySelector('#critters')
+  content.style.display = "block"
+  content.innerHTML = '<p>Loading...</p>'
+  request({ 
+      url: 'http://maxcors.jit.su/http://max.ic.ht/critters/_all_docs?include_docs=true', 
+      json: true
+    }, function(err, resp, data) {
+    if (err) {
+      alert('error loading critters!')
+      hideCritterBrowser()
+      return
+    }
+    content.innerHTML = ""
+    data.rows.map(function(row) {
+      if (!row || !row.doc) return
+      if (row.doc.link && row.doc.link.match(/imgur/)) content.innerHTML += ('<img class="critterImage" src="' + row.doc.link + '"/>')
+    })
+    
+  })
+}
+
+function hideCritterBrowser() {
+  document.querySelector('#critters').style.display = 'none'
+}
+
+function getProxyImage(imgURL, cb) {
+  var proxyURL = 'http://maxcors.jit.su/' + imgURL // until imgur gets CORS on GETs
+  var img = new Image()
+  img.crossOrigin = ''
+  img.src = proxyURL
+  img.onload = function() {
+    cb(img)
+  }
+}
+
+document.querySelector('.browser').addEventListener('click', showCritterBrowser)
+document.addEventListener('click', function(e) {
+  if (!e.target.className.match(/critterImage/)) return
+  hideCritterBrowser()
+  getProxyImage(e.target.src, function(img) {
+    createCritter(img)
+  })
+})
 
 // handle drag and drop
 if (typeof window.FileReader === 'undefined') {
