@@ -26,6 +26,8 @@ b {
   background-color: #d00;
   opacity: 0.5;
 }
+#critterContainer { position: absolute; top: 50%; left: 0px; width: 100%; }
+#critters { display: none; background: white; border: 1px solid black; width: 640px; height: 480px; position: absolute; left: 50%; top: -260px; margin-left: -320px; padding: 20px; overflow: auto; }
 #instruct {
   position: fixed;
   bottom: 0px;
@@ -55,4 +57,86 @@ b {
 .right li img {
   width: 100%;
   height: 100%;
+}
+.button {
+  -webkit-align-items: flex-start;
+  -webkit-appearance: none;
+  -webkit-background-clip: border-box;
+  -webkit-background-origin: padding-box;
+  -webkit-background-size: auto;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-transition-delay: 0s;
+  -webkit-transition-duration: 0.3s;
+  -webkit-transition-property: all;
+  -webkit-transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-writing-mode: horizontal-tb;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: rgb(42, 202, 118);
+  background-image: none;
+  background-origin: padding-box;
+  background-size: auto;
+  border-bottom-color: rgba(0, 0, 0, 0);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgba(0, 0, 0, 0);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgba(0, 0, 0, 0);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgba(0, 0, 0, 0);
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  box-sizing: border-box;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: inline-block;
+  font-family: 'Lucida Grande';
+  font-size: 18px;
+  height: 52.09375px;
+  letter-spacing: normal;
+  line-height: normal;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  margin-right: 2px;
+  margin-top: 2px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  padding-bottom: 14.546875px;
+  padding-left: 18.1875px;
+  padding-right: 18.1875px;
+  padding-top: 14.546875px;
+  position: relative;
+  text-align: center;
+  text-indent: 0px;
+  text-shadow: none;
+  text-transform: none;
+  transition-delay: 0s;
+  transition-duration: 0.3s;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  word-spacing: 0px;
+  writing-mode: lr-tb;
+  position: relative;
+  top: -3px;
+  float: right;
+}
+
+#critters > img {
+  border: 6px solid #eee;
+  float: left;
+  margin: 0 23px 20px;
+  width: 134px;
+  padding: 10px;
 }
