@@ -4,7 +4,7 @@ var walk = require('voxel-walk')
 var request = require('browser-request')
 
 var game = createGame({
-  chunkDistance: 2,
+  chunkDistance: 3,
   generateChunks: false,
   materials: [['grass', 'dirt', 'grass_dirt'], 'brick', 'dirt'],
   texturePath: 'textures/'
@@ -31,7 +31,7 @@ game.appendTo(container);
 // create a player
 var createPlayer = require('voxel-player')(game);
 var player = createPlayer('textures/shama.png');
-player.yaw.position.set(0, 20, 0);
+player.yaw.position.set(0, 100, 0);
 player.possess();
 player.toggle(); // switch to 3rd person
 
@@ -71,7 +71,7 @@ function createCritter(img) {
   critter.on('block', function () {
     critter.move(0, 0.02, 0.02);
   });
-  critter.notice(player, { radius: 50 });
+  critter.notice(player, { radius: 5 });
   
   critter.on('notice', function (p) {
     critter.lookAt(p);
