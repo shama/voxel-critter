@@ -66,6 +66,7 @@ function createCritter(img) {
 
   critter.position.clone(game.controls.target().avatar.position);
   critter.position.z += 10;
+  critter.position.y += 10;
   
   critter.on('block', function () {
     critter.move(0, 0.02, 0.02);
