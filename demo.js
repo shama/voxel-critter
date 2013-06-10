@@ -1,5 +1,4 @@
 var createGame = require('voxel-engine');
-var tic = require('tic')();
 var perlinTerrain = require('voxel-perlin-terrain')
 var walk = require('voxel-walk')
 var request = require('browser-request')
@@ -65,14 +64,13 @@ function createCritter(img) {
   addImage(img);
   var critter = critterCreator(img);
 
-  critter.position.y = 5.5;
-  critter.position.x = Math.random() * 100 - 15;
-  critter.position.z = Math.random() * 100 - 15;
+  critter.position.clone(game.controls.target().avatar.position);
+  critter.position.z += 10;
   
   critter.on('block', function () {
     critter.move(0, 0.02, 0.02);
   });
-  critter.notice(player, { radius: 500 });
+  critter.notice(player, { radius: 50 });
   
   critter.on('notice', function (p) {
     critter.lookAt(p);
@@ -83,7 +81,7 @@ function createCritter(img) {
     //console.log('COLLISION');
   });
 
-  tic.interval(function () {
+  game.setInterval(function () {
     if (critter.noticed) return;
     critter.rotation.y += Math.random() * Math.PI / 2 - Math.PI / 4;
     critter.move(0, 0, 0.05 * Math.random());
@@ -121,7 +119,9 @@ function showCritterBrowser() {
     content.innerHTML = ""
     data.rows.map(function(row) {
       if (!row || !row.doc) return
-      if (row.doc.link && row.doc.link.match(/imgur/)) content.innerHTML += ('<img class="critterImage" src="' + row.doc.link + '"/>')
+      if (row.doc.link && row.doc.link.match(/imgur/)) {
+        content.innerHTML += ('<img class="critterImage" src="' + row.doc.link + '"/>')
+      }
     })
     
   })

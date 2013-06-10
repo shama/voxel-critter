@@ -31,13 +31,12 @@
     "lsb": "~0.1.0",
     "voxel-mesh": "~0.2.1",
     "voxel": "~0.3.1",
-    "tic": "~0.2.1",
     "voxel-creature": "git://github.com/shama/voxel-creature",
     "inherits": "~2.0.0"
   },
   "devDependencies": {
     "beefy": "~0.3.0",
-    "voxel-engine": "~0.18.0",
+    "voxel-engine": "~0.18.1",
     "voxel-player": "~0.1.0",
     "voxel-perlin-terrain": "~1.0.0",
     "browser-request": "~0.2.1",
