@@ -113,7 +113,10 @@ function convertToVoxels(hash) {
         if (current[1] > 0 && current[1] > bounds[1][1]) bounds[1][1] = current[1];
         if (current[2] < 0 && current[2] < bounds[0][2]) bounds[0][2] = current[2];
         if (current[2] > 0 && current[2] > bounds[1][2]) bounds[1][2] = current[2];
-        voxelData[current.slice(0, 3).join('|')] = current.slice(3)[0];
+        var idx = current.slice(0, 3).join('|');
+        var val = current.slice(3)[0];
+        if (val === 0) val = 1;
+        voxelData[idx] = val;
       }
     }
   }
