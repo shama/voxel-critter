@@ -1,6 +1,6 @@
 # voxel-critter
 
-Make your [voxel critter](voxelbuilder.com) come to life!
+Make your [voxel critter](http://voxelbuilder.com) come to life!
 
 Extends [voxel-creature](https://github.com/substack/voxel-creature)
 and loads encoded PNG files exported from voxelbuilder.com.
