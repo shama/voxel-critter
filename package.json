@@ -1,7 +1,7 @@
 {
   "name": "voxel-critter",
   "description": "Make your voxelbuilder.com critter come to life!",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/shama/voxel-critter",
   "author": {
     "name": "Kyle Robinson Young",
