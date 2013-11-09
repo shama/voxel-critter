@@ -36,6 +36,7 @@ npm install voxel-critter
 Use [browserify](http://browserify.org) to `require('voxel-critter')`.
 
 ## release history
+* 0.1.2 - Fix non-existent load (@domenic)
 * 0.1.1 - Subdivide functionality into load and convertToVoxels (@maxogden)
 * 0.1.0 - initial release
 
