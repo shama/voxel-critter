@@ -6,7 +6,7 @@ var Creature = require('voxel-creature').Creature;
 
 function Critter(game, img, opts) {
   this.game = game;
-  var data = this.load(img);
+  var data = load(img);
   var obj = this.build(data);
   Creature.call(this, game, obj, opts);
 }
