@@ -25,6 +25,18 @@ img.onload = function() {
 img.src = 'critter.png';
 ```
 
+## using with node
+
+If you would like to convert images into voxel data:
+
+```js
+var convert = require('voxel-critter')();
+convert.readImage('./critter.png', function(err, hash) {
+  var data = convert.toVoxels(hash);
+  // data now contains the voxels, colors, and bounds
+});
+```
+
 # install
 
 With [npm](https://npmjs.org) do:
