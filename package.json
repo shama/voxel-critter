@@ -30,6 +30,12 @@
     "start": "beefy demo.js 8080 -- -d",
     "test": "node test.js"
   },
+  "files": [
+    "lib",
+    "main.js",
+    "index.js",
+    "LICENSE-MIT"
+  ],
   "dependencies": {
     "get-pixels": "^1.1.0",
     "inherits": "~2.0.0",
