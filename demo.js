@@ -1,7 +1,7 @@
 var createGame = require('voxel-engine');
 var perlinTerrain = require('voxel-perlin-terrain')
-var walk = require('voxel-walk')
-var request = require('browser-request')
+var walk = require('voxel-walk');
+var request = require('browser-request');
 
 var game = createGame({
   chunkDistance: 3,
@@ -31,7 +31,7 @@ game.appendTo(container);
 // create a player
 var createPlayer = require('voxel-player')(game);
 var player = createPlayer('textures/shama.png');
-player.yaw.position.set(0, 100, 0);
+player.yaw.position.set(0, 10, 0);
 player.possess();
 player.toggle(); // switch to 3rd person
 
@@ -48,59 +48,79 @@ window.addEventListener('keydown', function (ev) {
   if (ev.keyCode === 'R'.charCodeAt(0)) player.toggle()
 })
 
-function addImage(img) {
-  var right = document.querySelector('.right');
-  if (right.childNodes.length > 10) {
-    right.removeChild(right.childNodes[2]);
+function addImage(src) {
+  function appendImage(el) {
+    var right = document.querySelector('.right');
+    if (right.childNodes.length > 10) {
+      right.removeChild(right.childNodes[2]);
+    }
+    var li = document.createElement('li');
+    li.appendChild(el);
+    right.appendChild(li);
   }
-  var li = document.createElement('li');
-  li.appendChild(img);
-  right.appendChild(li);
+  if (typeof src === 'string') {
+    var img = new Image();
+    img.onload = function() {
+      appendImage(img);
+    }
+    img.src = src;
+  } else {
+    appendImage(src);
+  }
 }
 
 // create a critter
 var critterCreator = require('./')(game);
-function createCritter(img) {
-  addImage(img);
-  var critter = critterCreator(img);
+function createCritter(img, done) {
+  if (typeof img !== 'string') {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.fillStyle = 'rgb(255,255,255)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+    img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+    addImage(canvas);
+  } else {
+    addImage(img);
+  }
+  critterCreator(img, function(err, critter) {
+    critter.position.clone(game.controls.target().avatar.position);
+    critter.position.z += 10;
+    critter.position.y += 10;
+    
+    critter.on('block', function () {
+      critter.move(0, 0.02, 0.02);
+    });
+    critter.notice(player, { radius: 5 });
+    
+    critter.on('notice', function (p) {
+      critter.lookAt(p);
+      critter.move(0, 0, 0.05);
+    });
+    
+    critter.on('collide', function (p) {
+      //console.log('COLLISION');
+    });
 
-  critter.position.clone(game.controls.target().avatar.position);
-  critter.position.z += 10;
-  critter.position.y += 10;
-  
-  critter.on('block', function () {
-    critter.move(0, 0.02, 0.02);
-  });
-  critter.notice(player, { radius: 5 });
-  
-  critter.on('notice', function (p) {
-    critter.lookAt(p);
-    critter.move(0, 0, 0.05);
-  });
-  
-  critter.on('collide', function (p) {
-    //console.log('COLLISION');
-  });
+    game.setInterval(function () {
+      if (critter.noticed) return;
+      critter.rotation.y += Math.random() * Math.PI / 2 - Math.PI / 4;
+      critter.move(0, 0, 0.05 * Math.random());
+    }, 1000);
 
-  game.setInterval(function () {
-    if (critter.noticed) return;
-    critter.rotation.y += Math.random() * Math.PI / 2 - Math.PI / 4;
-    critter.move(0, 0, 0.05 * Math.random());
-  }, 1000);
-
-  return critter;
+    if (typeof done === 'function') done(null, critter);
+  });
 }
 
 // Create a rabbit
 game.once('tick', function() {
-  var rabbit = new Image();
-  rabbit.onload = function() {
-    var r = createCritter(rabbit);
+  createCritter('./rabbit.png', function(err, r) {
     r.position.x = player.yaw.position.x;
     r.position.y = player.yaw.position.y;
     r.position.z = player.yaw.position.z - 10;
-  };
-  rabbit.src = './rabbit.png';
+  });
 });
 
 // critter browser
@@ -166,10 +186,10 @@ container.ondrop = function (e) {
     var reader = new FileReader();
     reader.onload = function(event) {
       var img = new Image();
-      img.src = event.target.result;
       img.onload = function() {
         createCritter(img);
       };
+      img.src = event.target.result;
     };
     reader.readAsDataURL(file);
   }

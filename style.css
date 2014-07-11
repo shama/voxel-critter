@@ -54,7 +54,7 @@ b {
   float: left;
   margin-right: 3px;
 }
-.right li img {
+.right li img, .right li canvas {
   width: 100%;
   height: 100%;
 }
