@@ -1,4 +1,4 @@
-# voxel-critter
+# voxel-critter [![Build Status](http://img.shields.io/travis/shama/voxel-critter.svg)](https://travis-ci.org/shama/voxel-critter)
 
 Make your [voxel critter](http://voxelbuilder.com) come to life!
 
