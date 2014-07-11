@@ -24,22 +24,27 @@
   "engines": {
     "node": ">= 0.8.0"
   },
+  "main": "lib/convert.js",
+  "browser": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/beefy demo.js"
+    "start": "beefy demo.js 8080 -- -d",
+    "test": "node test.js"
   },
   "dependencies": {
+    "get-pixels": "^1.1.0",
+    "inherits": "~2.0.0",
     "lsb": "~0.1.0",
-    "voxel-mesh": "~0.2.1",
     "voxel": "~0.3.1",
     "voxel-creature": "git://github.com/shama/voxel-creature",
-    "inherits": "~2.0.0"
+    "voxel-mesh": "~0.2.1"
   },
   "devDependencies": {
-    "beefy": "~0.3.0",
-    "voxel-engine": "~0.18.1",
-    "voxel-player": "~0.1.0",
-    "voxel-perlin-terrain": "~1.0.0",
+    "beefy": "^2.0.2",
     "browser-request": "~0.2.1",
+    "tape": "^2.13.3",
+    "voxel-engine": "~0.18.1",
+    "voxel-perlin-terrain": "~1.0.0",
+    "voxel-player": "~0.1.0",
     "voxel-walk": "0.0.5"
   }
 }
