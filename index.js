@@ -35,14 +35,14 @@ Critter.prototype.build = function(hash) {
 
   var converted = this.convert.toVoxels(hash);
   var bounds = converted.bounds;
-  var voxelData = converted.voxelData;
+  var voxels = converted.voxels;
   var colors = converted.colors;
   
   // create voxels
   bounds[0] = bounds[0].map(function(b) { return b - 1; });
   bounds[1] = bounds[1].map(function(b) { return b + 1; });
   var voxels = voxel.generate(bounds[0], bounds[1], function(x, y, z) {
-    return voxelData[[x, y, z].join('|')] || 0;
+    return voxels[[x, y, z].join('|')] || 0;
   });
   
   // create mesh

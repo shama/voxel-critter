@@ -17,6 +17,6 @@ test('convert hash to voxel data', function(t) {
     var data = c.toVoxels(hash);
     t.deepEqual(data.bounds, [[-3, -1, -1], [3, 12, 3]]);
     t.equal(data.colors.length, 6);
-    t.equal(Object.keys(data.voxelData).length, 259);
+    t.equal(Object.keys(data.voxels).length, 259);
   });
 });
