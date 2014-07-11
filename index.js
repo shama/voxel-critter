@@ -29,6 +29,7 @@ module.exports = function(game) {
   };
 };
 module.exports.Critter = Critter;
+module.exports.Convert = Convert;
 
 Critter.prototype.build = function(hash) {
   var self = this;

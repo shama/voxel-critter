@@ -24,7 +24,7 @@
   "engines": {
     "node": ">= 0.8.0"
   },
-  "main": "lib/convert.js",
+  "main": "main.js",
   "browser": "index.js",
   "scripts": {
     "start": "beefy demo.js 8080 -- -d",

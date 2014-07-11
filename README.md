@@ -20,12 +20,12 @@ critterCreator('./critter.png', function(err, critter) {
 });
 ```
 
-## using with node
+## converting images to voxel data
 
-If you would like to convert images into voxel data:
+If you would like to convert images into voxel data within Node.js or the browser do:
 
 ```js
-var convert = require('voxel-critter')();
+var convert = require('voxel-critter').Convert();
 convert.readImage('./critter.png', function(err, hash) {
   var data = convert.toVoxels(hash);
   // data now contains the voxels, colors, and bounds

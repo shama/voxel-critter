@@ -1,5 +1,5 @@
 var test = require('tape');
-var Convert = require('./lib/convert');
+var Convert = require('./main.js').Convert;
 var path = require('path');
 
 test('converts image to hash', function(t) {
