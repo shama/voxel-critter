@@ -11,18 +11,13 @@ and loads encoded PNG files exported from voxelbuilder.com.
 
 ```js
 var critterCreator = require('voxel-critter')(game);
-
-var img = new Image();
-img.onload = function() {
-  var critter = critterCreator(img);
-  
+critterCreator('./critter.png', function(err, critter) {
   // Move forward
   critter.move(0, 0, 0.02);
 
   // Jump!
   critter.jump();
-};
-img.src = 'critter.png';
+});
 ```
 
 ## using with node
