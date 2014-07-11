@@ -129,7 +129,7 @@ function showCritterBrowser() {
   content.style.display = "block"
   content.innerHTML = '<p>Loading...</p>'
   request({ 
-      url: 'http://maxcors.jit.su/http://max.ic.ht/critters/_all_docs?include_docs=true', 
+      url: 'http://cors.maxogden.com/http://max.ic.ht/critters/_all_docs?include_docs=true', 
       json: true
     }, function(err, resp, data) {
     if (err) {
@@ -153,7 +153,7 @@ function hideCritterBrowser() {
 }
 
 function getProxyImage(imgURL, cb) {
-  var proxyURL = 'http://maxcors.jit.su/' + imgURL // until imgur gets CORS on GETs
+  var proxyURL = 'http://cors.maxogden.com/' + imgURL // until imgur gets CORS on GETs
   var img = new Image()
   img.crossOrigin = ''
   img.src = proxyURL
