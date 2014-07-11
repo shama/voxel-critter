@@ -27,8 +27,9 @@
   "main": "main.js",
   "browser": "index.js",
   "scripts": {
-    "start": "beefy demo.js 8080 -- -d",
-    "test": "node test.js"
+    "start": "beefy demo.js:bundle.js 8080 -- -d",
+    "test": "node test.js",
+    "build": "browserify demos.js -o bundle.js"
   },
   "files": [
     "lib",
@@ -47,6 +48,7 @@
   "devDependencies": {
     "beefy": "^2.0.2",
     "browser-request": "~0.2.1",
+    "browserify": "^4.2.0",
     "tape": "^2.13.3",
     "voxel-engine": "~0.18.1",
     "voxel-perlin-terrain": "~1.0.0",
