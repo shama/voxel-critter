@@ -29,7 +29,7 @@
   "scripts": {
     "start": "beefy demo.js:bundle.js 8080 -- -d",
     "test": "node test.js",
-    "build": "browserify demos.js -o bundle.js"
+    "build": "browserify demo.js -o bundle.js"
   },
   "files": [
     "lib",
